@@ -1,0 +1,13 @@
+{application, etermcache,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { etermcache_app, []}},
+  {env, []},
+  {modules, [etermcache_app,etermcache_sup,etermcache_srv,etermcache]}
+ ]}.
