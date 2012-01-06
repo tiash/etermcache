@@ -1,0 +1,1 @@
+-define(cache(K,Value), etermcache:get({?MODULE,K},fun () -> Value end)).
