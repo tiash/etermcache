@@ -2,7 +2,7 @@
 
 -define(APP,etermcache).
 
--export([start_link/1]).
+-export([start_link/0]).
 -export([flush/0]).
 -export([get/2]).
 -export([purge/0,purge/1]).
@@ -52,7 +52,7 @@ ensure_tables() ->
   % end,
   % ok.
 
-start_link(_Options) ->
+start_link() ->
   {ok,erlang:spawn_link(fun () ->
       register(?MODULE,self()),
       ensure_tables(),

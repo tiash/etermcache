@@ -23,6 +23,6 @@ start_link() ->
 %% Supervisor callbacks
 %% ===================================================================
 
-init([]) ->
-    {ok, { {one_for_one, 5, 10}, [?CHILD(eterncache_srv,worker)]} }.
+init(_Init) ->
+    {ok, { {one_for_one, 5, 10}, [?CHILD(etermcache_srv,worker)]} }.
 
