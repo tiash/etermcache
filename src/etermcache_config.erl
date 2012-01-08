@@ -18,26 +18,26 @@
 
 %% Maximum number of bytes in the cache
 %%  nb: this is only a guidance, the cache may under heavy load grow beyond this
--property({max_bytes,?M(256)}).
+-property({max_bytes,268435456}). %% 256MB
 %% Maximum number of entries in the cache
 %%  nb: this is only a guidance, the cache may under heavy load grow beyond this
--property({max_entries=?M(1)}).
+-property({max_entries,1000000}). %% 1M
 %% The maximum age
 %% entries older than this will be droped on the the next vaccum
 %% even if the entry was recently accessed.
 %% The system may use a lower threshold if the system is under heavy load.
--property({max_age,?min(10)}).
+-property({max_age,600000}).
 %% The maximum time since last access
 %% entries that have not been accessed in this time will be droped on the next vaccum.
 %% The system may use a lower threshold if the system is under heavy load.
--property({time_to_live,?min(2)}).
+-property({time_to_live,120000}).
 
 %% Time to wait between scans of the cache
--porperty({flush_wait,?sec(1)}).
+-property({flush_delay,1000}).
 %% Time to sleep during the table scan
--property({flush_sleep,?ms(10)}).
+-property({flush_sleep,10}).
 %% Number of entries to process during a single step
--property({flush_step,100}).
+-property({flush_block,100}).
 
 
 
