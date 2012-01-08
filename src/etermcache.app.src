@@ -2,10 +2,11 @@
  [
   {description, ""},
   {vsn, "1"},
-  {registered, []},
+  {registered, [etermcache_srv]},
   {applications, [
                   kernel,
-                  stdlib
+                  stdlib,
+                  properties_pt
                  ]},
   {mod, { etermcache_app, []}},
   {env, []},
