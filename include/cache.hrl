@@ -1,6 +1,11 @@
 
+-ifndef(NOCACHE).
 -define(cache_(K,Value), etermcache:get(K,fun () -> Value end)).
 -define(purge_(K), etermcache:purge(K)).
+-else.
+-define(cache_(K,Value), Value).
+-define(purge_(K), ok).
+-endif.
 
 -define(cache(K,Value), ?cache_({?MODULE,K},Value)).
 -define(purge(K), ?purge({?MODULE,K})).
