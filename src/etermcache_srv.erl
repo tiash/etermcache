@@ -9,9 +9,8 @@
 -field(sleep).
 -field({needs_flush,[{default,false}]}).
 
--member({loop/0,[accessor]}).
+-member({loop/0,[mutator]}).
 -member({adjust/0,[mutator]}).
--member({check/0,[mutator]}).
 -member({run_flush/1,[mutator]}).
 -member({run_flush/2,[mutator]}).
 -member({run_flush/5,[mutator]}).
@@ -111,7 +110,7 @@ loop() ->
     receiver(sleep()),
     adjust(),
     run_flush(?DATA),
-    ?MODULE:loop(THIS).
+    SELF = ?MODULE:loop(SELF).
 
 run_flush(Table) ->
   run_flush(Table,ets:first(Table)).
