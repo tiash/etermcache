@@ -5,7 +5,7 @@
 
 %% Term cache
 
-%% every VM keeps a local tcache
+%% every VM keeps a local cache
 %% get(KEY,fun((KEY)->VAL))->VAL.
 %%
 
@@ -30,7 +30,7 @@ start() -> application:start(?APP).
 
 %% Removes all enterties from ALL caches
 -spec purge() -> ok.
-purge() -> tcahced_srv:purge().
+purge() -> etermcache_srv:purge().
 %% Removes select enterties from ALL caches
 -spec purge(key() | [key()]) -> ok.
 purge(KEYS) -> etermcache_srv:purge(KEYS).
