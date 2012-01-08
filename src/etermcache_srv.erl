@@ -4,10 +4,10 @@
 
 -compile({parse_transform,value_pt}).
 
--field(max_age).
--field(time_to_live).
--field(sleep).
--field({needs_flush,[{default,false}]}).
+-field({max_age,[{setter,set_max_age}]}).
+-field({time_to_live,[{setter,set_time_to_live}]}).
+-field({sleep,[{setter,set_sleep}]}).
+-field({needs_flush,[{default,false},{setter,set_needs_flush}]}).
 
 -member({loop/0,[mutator]}).
 -member({adjust/0,[mutator]}).
@@ -69,7 +69,7 @@ quota(Bytes,Entries) ->
      ,Bytes*1.0/etermcache_config:max_bytes()).
 
 start_flush() ->
-  sleep(0), needs_flush(true).
+  set_sleep(0), set_needs_flush(true).
 
 adjust() ->
   case quota() of
@@ -80,8 +80,8 @@ adjust() ->
       end,
       Q1 = max(0.9,Q),
       Q2 = max(0.8,Q*Q),
-      max_age(min(etermcache_config:max_age(),round(max_age()/Q1))),
-      time_to_live(min(etermcache_config:time_to_live(),round(time_to_live()/Q2)))
+      set_max_age(min(etermcache_config:max_age(),round(max_age()/Q1))),
+      set_time_to_live(min(etermcache_config:time_to_live(),round(time_to_live()/Q2)))
   end.
 
 receiver() -> receiver(sleep()).
@@ -102,10 +102,10 @@ loop() ->
       true ->
         receiver(etermcache_config:flush_delay());
       _ ->
-        sleep(etermcache_config:flush_sleep()),
+        set_sleep(etermcache_config:flush_sleep()),
         receiver(etermcache_config:flush_delay())
     end,
-    needs_flush(false),
+    set_needs_flush(false),
     run_flush(?LOG),
     receiver(sleep()),
     adjust(),
@@ -137,7 +137,7 @@ run_flush(Count,MaxAge,Now,Table,Key) ->
         error:badarg -> ok
       end,
       run_flush(Count,MaxAge,Now,Table,Next);
-    _ -> needs_flush(true) %% Something went wrong with the table scan so ensure we do another scan ASAP
+    _ -> set_needs_flush(true) %% Something went wrong with the table scan so ensure we do another scan ASAP
   end.
 
 flush() ->
