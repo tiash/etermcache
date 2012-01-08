@@ -1,1 +1,3 @@
--define(cache(K,Value), etermcache:get({?MODULE,K},fun () -> Value end)).
+-define(cache(K,Value), ?cache_({?MODULE,K},Value)).
+-define(cache(K1,K2,Value), ?cache_({?MODULE,K1,K2},Value)).
+-define(cache_(K,Value), etermcache:get(K,fun () -> Value end)).
